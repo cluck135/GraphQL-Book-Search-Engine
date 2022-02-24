@@ -1,15 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
+import { useQuery, useMutation } from '@apollo/client';
+
+import { MUTATION_DELETE_BOOK, QUERY_USER } from '../utils/API';
 
 import { getMe, deleteBook } from '../utils/API';
 import Auth from '../utils/auth';
-import { removeBookId } from '../utils/localStorage';
+import { removeBookId, getSavedUsername } from '../utils/localStorage';
+let globalUserData = '';
 
 const SavedBooks = () => {
   const [userData, setUserData] = useState({});
 
   // use this to determine if `useEffect()` hook needs to run again
   const userDataLength = Object.keys(userData).length;
+
+  const [deleteBook, { error, data }] = useMutation(MUTATION_DELETE_BOOK);
+
+  const username = getSavedUsername()
+
+
+  const { loading, queryUserData } = useQuery(QUERY_USER, {
+    variables: {
+      username: username
+    }
+  });
+
+  const globalUserData = queryUserData?.me || {};
 
   useEffect(() => {
     const getUserData = async () => {
@@ -74,12 +91,12 @@ const SavedBooks = () => {
       </Jumbotron>
       <Container>
         <h2>
-          {userData.savedBooks.length
+          {queryUserData.savedBooks.length
             ? `Viewing ${userData.savedBooks.length} saved ${userData.savedBooks.length === 1 ? 'book' : 'books'}:`
             : 'You have no saved books!'}
         </h2>
         <CardColumns>
-          {userData.savedBooks.map((book) => {
+          {queryUserData.savedBooks.map((book) => {
             return (
               <Card key={book.bookId} border='dark'>
                 {book.image ? <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' /> : null}
