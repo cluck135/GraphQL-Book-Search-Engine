@@ -2,12 +2,13 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow)](https://opensource.org/licenses/MIT)
 
 ## Description
-A REST application converted to GraphQL
+A REST application converted to GraphQL Redux
 
 ## Table of Contents
 - [Installation Instructions](#installation-instructions)
 - [Usage Information](#usage-information)
 - [Test Instructions](#test-instructions)
+- [Images](#images)
 - [Questions](#questions)
 
 ## Installation Instructions
