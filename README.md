@@ -33,7 +33,7 @@ This project is licensed under the terms of the [MIT](https://opensource.org/lic
 [herokuApp](https://graphql-booksearch.herokuapp.com/)
 
 ## Images
-![Image of website](./images/bookSearchWebsite.PNG)
+![Image of website](./images/bookSearchWebsite.jpg)
 
 ## Questions
 My Github Profile: [cluck135](https://github.com/cluck135)
