@@ -6,6 +6,22 @@ export const getSavedBookIds = () => {
   return savedBookIds;
 };
 
+export const getSavedUsername = () => {
+  const username = localStorage.getItem('username')
+    ? JSON.parse(localStorage.getItem('username'))
+    : [];
+
+  return username;
+};
+
+export const saveUsername = (username) => {
+  if (username.length) {
+    localStorage.setItem('username', JSON.stringify(username));
+  } else {
+    localStorage.removeItem('username');
+  }
+};
+
 export const saveBookIds = (bookIdArr) => {
   if (bookIdArr.length) {
     localStorage.setItem('saved_books', JSON.stringify(bookIdArr));

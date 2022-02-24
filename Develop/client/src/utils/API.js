@@ -1,4 +1,65 @@
-// route to get logged in user's info (needs the token)
+import { gql } from "@apollo/client";
+
+export const QUERY_USER = gql`
+query me($username: String!) {
+  me(username: $username) {
+    username
+    email
+    savedBooks {
+      authors
+      title
+      image
+      link
+      description
+    }
+  }
+}
+`;
+
+export const MUTATION_CREATE_USER = gql`
+mutation createUser($username: String! $email: String! $password: String!) {
+  createUser(username: $username email: $email password: $password) {
+    token
+    user {
+      _id
+      username
+    }
+  }
+}
+`;
+
+export const MUTATION_SAVE_BOOK = gql`
+mutation saveBook($username: String!, $book: saveBook!) {
+  saveBook(username: $username, book: $book) {
+     username
+    savedbooks {
+      title
+    }
+  }
+}
+`;
+
+
+export const MUTATION_LOGIN = gql`
+mutation login($email: String!, $password: String!) {
+  login(email: $email, password: $password) {
+    token
+    user {
+      _id
+      username
+    }
+  }
+}
+`;
+
+export const MUTATION_DELETE_BOOK = gql`
+mutation deleteBook ($user: currentUser! $bookId: ID!) {
+  deleteBook(user: $user bookId: $bookId) {
+  	username
+  }
+}
+`;
+
 export const getMe = (token) => {
   return fetch('/api/users/me', {
     headers: {
@@ -50,8 +111,6 @@ export const deleteBook = (bookId, token) => {
   });
 };
 
-// make a search to google books api
-// https://www.googleapis.com/books/v1/volumes?q=harry+potter
 export const searchGoogleBooks = (query) => {
   return fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}`);
 };
